@@ -1,7 +1,8 @@
 import React, { memo, useState } from "react";
 import PropTypes from "prop-types";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { removeToDB, updateDB } from "./PouchDb";
+import GET_TODOS from "../utils/contants";
 
 // eslint-disable-next-line react/prop-types
 const ItemListed = ({ taskId }) => {
@@ -11,6 +12,7 @@ const ItemListed = ({ taskId }) => {
   // };
 
   const [editTask, setEditTask] = useState("");
+  const queryClient = useQueryClient();
 
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: () => removeToDB(taskId),
@@ -30,6 +32,9 @@ const ItemListed = ({ taskId }) => {
     isError: isErr,
   } = useMutation({
     mutationFn: () => updateDB(taskId, { task: editTask }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(GET_TODOS);
+    },
   });
 
   const edit = (event) => {

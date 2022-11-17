@@ -2,13 +2,14 @@ import React from "react";
 import { useQuery } from "react-query";
 import ItemListed from "../Components/ItemListed";
 import { deleteAll, deleteTesAll, getToDB } from "../Components/PouchDb";
+import { GET_TODOS } from "../utils/contants";
 // import ItemListed from "../Components/ItemListed";
 // import { BoxDataCollect } from "../Components/BoxData";
 
 const TodoList = () => {
   // const data = useContext(BoxDataCollect);
 
-  const { data, error, isLoading } = useQuery("key", async () => {
+  const { data, error, isLoading } = useQuery(GET_TODOS, async () => {
     const taskList = await getToDB();
     return taskList;
   });

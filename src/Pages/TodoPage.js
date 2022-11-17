@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { insertToDB } from "../Components/PouchDb";
+import GET_TODOS from "../utils/contants";
 import TodoList from "./TodoList";
 // import { ContextBoxData } from "../Components/ContextBox";
 
 const TodoPage = () => {
   const [inputdata, setInputData] = useState("");
   // const [sumit, setSumit] = useState(0);
+
+  const queryClient = useQueryClient();
 
   // const data = useContext(ContextBoxData);
 
@@ -34,8 +37,10 @@ const TodoPage = () => {
   //   console.log("coming ret", ret);
   // };
 
-  const { mutate } = useMutation({
-    mutationFn: (newTodoParam) => insertToDB(newTodoParam),
+  const { mutate } = useMutation(insertToDB, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(GET_TODOS);
+    },
   });
 
   const handleButton = (event) => {
