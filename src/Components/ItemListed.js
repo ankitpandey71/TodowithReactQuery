@@ -16,6 +16,9 @@ const ItemListed = ({ taskId }) => {
 
   const { mutate, isLoading, isSuccess, isError } = useMutation({
     mutationFn: () => removeToDB(taskId),
+    onSuccess: () => {
+      queryClient.invalidateQueries(GET_TODOS);
+    },
   });
 
   const remove = (event) => {
