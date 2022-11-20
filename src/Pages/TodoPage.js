@@ -53,17 +53,22 @@ const TodoPage = () => {
   };
   return (
     <div>
-      <form>
-        <input
-          name="mytodo"
-          type="text"
-          placeholder="Entertexthere"
-          value={inputdata}
-          onChange={itemEvent}
-        />
-        <button onClick={handleButton}>ADD</button>
-      </form>
-      <TodoList />
+      <div className="flex justify-center items-center">
+        <form>
+          <input
+            name="mytodo"
+            type="text"
+            placeholder="Entertexthere"
+            value={inputdata}
+            onChange={itemEvent}
+            className="border border-black"
+          />
+          <button onClick={handleButton}>ADD</button>
+        </form>
+      </div>
+      <div className="flex justify-center items-center">
+        <TodoList />
+      </div>
     </div>
   );
 };

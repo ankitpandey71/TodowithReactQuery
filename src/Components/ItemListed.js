@@ -57,16 +57,18 @@ const ItemListed = ({ taskId }) => {
   );
 
   return (
-    <div>
+    <div className="bg-orange-500">
       <input
         type="text"
         onChange={(e) => {
           setEditTask(e.target.value);
         }}
+        className="border border-black"
       />
       <button type="button" onClick={edit}>
         Edit
       </button>
+      <br />
       {/* <li>{task}</li> */}
       <button type="button" onClick={remove}>
         X
